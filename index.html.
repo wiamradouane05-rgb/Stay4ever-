@@ -1,0 +1,108 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Are you the Queen of K-pop? ✨🖤</title>
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:linear-gradient(135deg,#120b16,#35152c,#100e19);
+  color:white;
+  text-align:center;
+  min-height:100vh;
+  padding:25px 14px;
+}
+main{
+  max-width:550px;
+  margin:auto;
+  background:#211625;
+  border:1px solid #d879b8;
+  border-radius:25px;
+  padding:25px 20px;
+  box-shadow:0 0 25px #d65ca544;
+}
+h1{color:#ffacd9;font-size:30px}
+.subtitle{color:#e8cde0}
+button{
+  background:#f4a5d4;
+  color:#241226;
+  border:0;
+  border-radius:14px;
+  padding:13px 18px;
+  font-size:16px;
+  font-weight:bold;
+  cursor:pointer;
+  margin:7px 0;
+  width:100%;
+}
+button:hover{background:#ffd0eb}
+.option{
+  background:#39263d;
+  color:white;
+  border:1px solid #98618e;
+}
+#progress{color:#ffacd9}
+#message{line-height:1.6}
+</style>
+</head>
+<body>
+<main>
+  <h1>👑 Are you the Queen of K-pop? ✨🖤</h1>
+  <p class="subtitle">BLACKPINK 🖤💗 · Stray Kids 🖤✨</p>
+  <div id="game">
+    <p>¿Preparada para demostrar que eres una verdadera fan?</p>
+    <button onclick="startQuiz()">¡EMPEZAR! 🎤</button>
+  </div>
+</main>
+
+<script>
+const questions = [
+ {q:"¿Qué grupo canta 'How You Like That'?",a:["BLACKPINK","Stray Kids","TWICE"],c:0},
+ {q:"¿Cómo se llama el fandom de Stray Kids?",a:["BLINK","STAY","ONCE"],c:1},
+ {q:"¿Cómo se llama el fandom de BLACKPINK?",a:["BLINK","STAY","MOA"],c:0},
+ {q:"¿Qué grupo tiene a Lisa?",a:["Stray Kids","BLACKPINK","ITZY"],c:1},
+ {q:"¿Qué grupo tiene a Felix?",a:["BLACKPINK","IVE","Stray Kids"],c:2},
+ {q:"¿Qué significa K-pop?",a:["Korean pop","King pop","Karaoke pop"],c:0},
+ {q:"¿Cuál de estos es un grupo de K-pop?",a:["BLACKPINK","Los dos","Stray Kids"],c:1},
+ {q:"¿Qué fandom pertenece a BLACKPINK?",a:["STAY","BLINK","ARMY"],c:1},
+ {q:"¿Qué fandom pertenece a Stray Kids?",a:["STAY","BLINK","CARAT"],c:0},
+ {q:"¡Última pregunta! ¿Qué es lo más importante al ser fan?",a:["Disfrutar la música","Ser perfecta","Saberlo todo"],c:0}
+];
+let current=0,score=0;
+
+function startQuiz(){
+ current=0;score=0;showQuestion();
+}
+function showQuestion(){
+ if(current>=questions.length){showResult();return}
+ const q=questions[current];
+ document.getElementById("game").innerHTML=
+ `<p id="progress">Pregunta ${current+1} de ${questions.length} ✨</p>
+ <h2>${q.q}</h2>`+
+ q.a.map((answer,i)=>
+ `<button class="option" onclick="answer(${i})">${answer}</button>`
+ ).join("");
+}
+function answer(i){
+ if(i===questions[current].c)score++;
+ current++;
+ showQuestion();
+}
+function showResult(){
+ let title,emoji;
+ if(score>=9){title="Queen of K-pop";emoji="👑💗"};
+ if(score>=6&&score<9){title="K-pop Star";emoji="🌟🖤"};
+ if(score<6){title="K-pop Rookie";emoji="🎀✨"};
+ document.getElementById("game").innerHTML=
+ `<h2>${emoji} ${title} ${emoji}</h2>
+ <p>Has acertado ${score} de ${questions.length} preguntas.</p>
+ <p id="message">${score>=9?"¡Increíble! Tienes un nivel de reina del K-pop.":score>=6?"¡Muy bien! Sigue disfrutando del K-pop.":"¡No pasa nada! Puedes intentarlo otra vez y aprender."}</p>
+ <button onclick="startQuiz()">VOLVER A JUGAR 💗</button>`;
+}
+</script>
+</body>
+</html>
